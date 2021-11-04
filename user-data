@@ -1,0 +1,57 @@
+#cloud-config
+
+# This is the user-data configuration file for cloud-init. By default this sets
+# up an initial user called "ubuntu" with password "ubuntu", which must be
+# changed at first login. However, many additional actions can be initiated on
+# first boot from this file. The cloud-init documentation has more details:
+#
+# https://cloudinit.readthedocs.io/
+#
+# ================================================
+# Based on raspi-ubuntu-ansible by @clayshek:
+# https://github.com/clayshek/raspi-ubuntu-ansible
+# ================================================
+
+# Set your hostname here, the manage_etc_hosts will update the hosts file entries as well
+hostname: pebblemain
+
+# Enable password authentication with the SSH daemon
+ssh_pwauth: true
+
+# On first boot, use ssh-import-id to give the specific users SSH access to
+# the default user
+ssh_import_id:
+- gh:jordonleach
+
+# Import keys with the ssh-import-id utility
+users:
+- name: ansible
+  primary-group: users
+  shell: /bin/bash
+  sudo: ALL=(ALL) NOPASSWD:ALL
+  passwd: {{ lookup('env', 'secret.PEBBLE_PASSWD' }}
+  groups: users,adm,dialout,audio,plugdev,netdev,video
+  lock_passwd: true
+  ssh-authorized-keys:
+    - {{ lookup('env', 'secret.PEBBLE_SSH_KEY' }}
+
+## Update apt database and upgrade packages on first boot
+package_update: true
+package_upgrade: true
+
+## Install additional packages on first boot
+packages:
+- avahi-daemon
+- pastebinit
+#- [libpython2.7, 2.7.3-0ubuntu3.1]
+
+# Run arbitrary commands at rc.local like time
+runcmd:
+- 'sudo systemctl restart avahi-daemon'
+- wget -O basic-install.sh https://install.pi-hole.net
+- sudo bash basic-install.sh
+- [ sh, -xc, "echo $(date) ': Pebble lives...'" ]
+
+powerstate:
+  delay: "+5"
+  mode: reboot
