@@ -42,12 +42,14 @@ package_upgrade: true
 ## Install additional packages on first boot
 packages:
 - avahi-daemon
+- ansible
 - pastebinit
 #- [libpython2.7, 2.7.3-0ubuntu3.1]
 
 # Run arbitrary commands at rc.local like time
 runcmd:
 - 'sudo systemctl restart avahi-daemon'
+- 'sudo ansible-pull -U https://github.com/jordojordo/pebble.git -i inventory.yml provision.yml > /var/log/ansible-provision.run 2>&1'
 - wget -O basic-install.sh https://install.pi-hole.net
 - sudo bash basic-install.sh
 - [ sh, -xc, "echo $(date) ': Pebble lives...'" ]
