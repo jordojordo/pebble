@@ -32,3 +32,9 @@
   apt:
     name: cifs-utils
     state: present
+
+- name: 'Install Pihole'
+    get_url:
+      url: https://install.pi-hole.net
+      dest: /opt/basic-install.sh
+    command: bash /opt/basic-install.sh
