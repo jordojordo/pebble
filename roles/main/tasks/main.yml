@@ -1,16 +1,16 @@
  
 ---
 
-- name: 'Change time zone'
+- name: Change time zone
   timezone:
     name: "{{time_zone}}"
 
-- name: 'Template out Netplan YAML to configure networking'
+- name: Template out Netplan YAML to configure networking
   template:
     src: ./templates/99_config.yaml.tpl
     dest: /etc/netplan/99_config.yaml
 
-- name: 'Applying Netplan Configuration'
+- name: Applying Netplan Configuration
   command: netplan apply
   become: yes
   become_method: sudo
@@ -28,13 +28,13 @@
     update_cache: yes
   become: yes
 
-- name: 'Install CIFS-Utils'
-  apt:
-    name: cifs-utils
-    state: present
-
-- name: 'Install Pihole'
+- name: Download pihole to tmp dir
     get_url:
       url: https://install.pi-hole.net
-      dest: /opt/basic-install.sh
-    command: bash /opt/basic-install.sh
+      dest: /tmp/
+      mode: 0755
+
+- name: Execute pihole script
+  shell: basic-install.sh
+  args:
+    chdir: /tmp/
