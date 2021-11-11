@@ -29,10 +29,10 @@
   become: yes
 
 - name: Download pihole to tmp dir
-    get_url:
-      url: https://install.pi-hole.net
-      dest: /tmp/
-      mode: 0755
+  get_url:
+    url: https://install.pi-hole.net
+    dest: /tmp/
+    mode: 0755
 
 - name: Execute pihole script
   shell: basic-install.sh
