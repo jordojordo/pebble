@@ -2,11 +2,11 @@
   timezone:
     name: "{{time_zone}}"
 
-- name: Upgrade the OS (apt-get dist-upgrade)
-  apt:
-    upgrade: dist
-    update_cache: yes
-  become: yes
+# - name: Upgrade the OS (apt-get dist-upgrade)
+#   apt:
+#     upgrade: dist
+#     update_cache: yes
+#   become: yes
 
 - name: Download pihole to opt dir
   get_url:
