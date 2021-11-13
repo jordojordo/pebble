@@ -20,15 +20,15 @@ ssh_pwauth: true
 
 # Import keys with the ssh-import-id utility
 users:
-- name: ansible
-  primary-group: users
-  shell: /bin/bash
-  sudo: ALL=(ALL) NOPASSWD:ALL
-  passwd: a4ac4de9-4e64-4ce3-90cd-f5cde431fa06
-  groups: users,adm,dialout,audio,plugdev,netdev,video
-  lock_passwd: true
-  ssh-authorized-keys:
-    - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCvsTYxErL3cnVG2kOxrvbphsJIpI3vz39lLzS8erTQT+nwwqi3yXRS+6dxYhdjvJHW/TDSN5Y6+OT9Q1uRhPm2mpmtLdEj4/A/pNn7mAMrae5OubgznfDKdlfDo4/YQyJsRKdhOhjNnZdyIJS/ZHzV5RCBEbYf309nKnEZEkiE2LNGbk+viAQ8a4KI2vflGJGdjIVVLLXqwRXuMx318k7BLQbWeeoMhLt/6U4dDxaSvRruvoy1ciZCJ5km74c9Os8Uc4xTDrK/eqUh75pZtRUNQQyUhjNn6EXLDjYX+zZeWTk4bETwZSYHGkDBJj2xIKeYX+SHzcMUvVV8f63hDshsZcotU7rdAzpsZF2f6DHGqCVPrHcMhBfzwzdjRFY48zliaZIcJM0BFTVsXhIKrBEPuq7a8KJUCVlDoX00m1xOCtVg8Q/yc+I5IDE4OjTRGNIVvfZZ/zv6c9AyJZg6nIoWnxlW4BSSVekqanKhkQWk/HecSftxnduBIKxKQxTgEY8= greeves@greeves-portley
+  - name: ansible
+    primary-group: users
+    shell: /bin/bash
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    passwd: a4ac4de9-4e64-4ce3-90cd-f5cde431fa06
+    groups: users,adm,dialout,audio,plugdev,netdev,video
+    lock_passwd: true
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCvsTYxErL3cnVG2kOxrvbphsJIpI3vz39lLzS8erTQT+nwwqi3yXRS+6dxYhdjvJHW/TDSN5Y6+OT9Q1uRhPm2mpmtLdEj4/A/pNn7mAMrae5OubgznfDKdlfDo4/YQyJsRKdhOhjNnZdyIJS/ZHzV5RCBEbYf309nKnEZEkiE2LNGbk+viAQ8a4KI2vflGJGdjIVVLLXqwRXuMx318k7BLQbWeeoMhLt/6U4dDxaSvRruvoy1ciZCJ5km74c9Os8Uc4xTDrK/eqUh75pZtRUNQQyUhjNn6EXLDjYX+zZeWTk4bETwZSYHGkDBJj2xIKeYX+SHzcMUvVV8f63hDshsZcotU7rdAzpsZF2f6DHGqCVPrHcMhBfzwzdjRFY48zliaZIcJM0BFTVsXhIKrBEPuq7a8KJUCVlDoX00m1xOCtVg8Q/yc+I5IDE4OjTRGNIVvfZZ/zv6c9AyJZg6nIoWnxlW4BSSVekqanKhkQWk/HecSftxnduBIKxKQxTgEY8= greeves@greeves-portley
 
 ## Update apt database and upgrade packages on first boot
 package_update: true
@@ -36,16 +36,16 @@ package_upgrade: true
 
 ## Install additional packages on first boot
 packages:
-- avahi-daemon
-- ansible
-- pastebinit
+  - avahi-daemon
+  - ansible
+  - pastebinit
 #- [libpython2.7, 2.7.3-0ubuntu3.1]
 
 # Run arbitrary commands at rc.local like time
 runcmd:
-- 'sudo systemctl restart avahi-daemon'
-- 'sudo ansible-pull -U https://github.com/jordojordo/pebble.git -i inventory.yml provision.yml > /var/log/ansible-provision.run 2>&1'
-- [ sh, -xc, "echo $(date) ': Pebble lives...'" ]
+  - "sudo systemctl restart avahi-daemon"
+  - "sudo ansible-pull -U https://github.com/jordojordo/pebble.git -i inventory.yml provision.yml > /var/log/ansible-provision.run 2>&1"
+  - [sh, -xc, "echo $(date) ': Pebble lives...'"]
 
 powerstate:
   delay: "+5"
