@@ -10,8 +10,8 @@
 
 - name: Download pihole to opt dir
   get_url:
-    url: https://install.pi-hole.net
-    dest: /opt
+    url: https://raw.githubusercontent.com/pi-hole/pi-hole/master/automated%20install/basic-install.sh
+    dest: /opt/
     mode: 0755
 
 - name: Execute pihole script
