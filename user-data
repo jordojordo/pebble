@@ -8,7 +8,7 @@
 # https://cloudinit.readthedocs.io/
 
 # Set your hostname here, the manage_etc_hosts will update the hosts file entries as well
-hostname: pebblemain
+hostname: pebble
 
 # Enable password authentication with the SSH daemon
 ssh_pwauth: true
