@@ -1,6 +1,0 @@
----
-# common variables for all
-
-ansible_connection: local
-ansible_become: yes
-ansible_become_method: sudo

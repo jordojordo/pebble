@@ -1,4 +1,6 @@
----
-- hosts: pebblemain
+- name: Initialize Pebble
+  hosts: all
+  become: yes
+  serial: 1
   roles:
-    - main
+    - pebble

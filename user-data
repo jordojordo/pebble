@@ -6,11 +6,6 @@
 # first boot from this file. The cloud-init documentation has more details:
 #
 # https://cloudinit.readthedocs.io/
-#
-# ================================================
-# Based on raspi-ubuntu-ansible by @clayshek:
-# https://github.com/clayshek/raspi-ubuntu-ansible
-# ================================================
 
 # Set your hostname here, the manage_etc_hosts will update the hosts file entries as well
 hostname: pebblemain
