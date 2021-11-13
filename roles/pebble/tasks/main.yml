@@ -2,16 +2,6 @@
   timezone:
     name: "{{time_zone}}"
 
-- name: Template out Netplan YAML to configure networking
-  template:
-    src: ./templates/99_config.yaml.tpl
-    dest: /etc/netplan/99_config.yaml
-
-- name: Applying Netplan Configuration
-  command: netplan apply
-  become: yes
-  become_method: sudo
-
 - name: Upgrade the OS (apt-get dist-upgrade)
   apt:
     upgrade: dist

@@ -8,7 +8,6 @@ all:
     ansible_become_method: sudo
     # dns_server & dns_search_suffix can both contain multiple values, separated by comma
     dns_server: "192.168.1.1"
-    dns_search_suffix: "lab.layer8sys.com"
     time_zone: America/New_York
     # Host variables
     static_ip_and_mask: "192.168.2.15/24"
