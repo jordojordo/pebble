@@ -8,14 +8,7 @@
     update_cache: yes
   become: yes
 
-- name: Update all packages to latest versions
-  apt:
-    name: "*"
-    state: latest
-    update_cache: yes
-  become: yes
-
-- name: Download pihole to tmp dir
+- name: Download pihole to opt dir
   get_url:
     url: https://install.pi-hole.net
     dest: /opt
